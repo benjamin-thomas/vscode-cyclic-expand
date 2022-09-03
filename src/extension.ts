@@ -1,12 +1,12 @@
 import * as vscode from 'vscode'
-import {SimpleAutocomplete} from './simpleAutocomplete'
+import {CyclicExpand} from './CyclicExpand'
 
-export const simpleAutocomplete = new SimpleAutocomplete()
+export const cyclicExpand = new CyclicExpand()
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.commands.registerTextEditorCommand('simpleAutocomplete.next', simpleAutocomplete.next),
-    vscode.window.onDidChangeTextEditorSelection(simpleAutocomplete.reset),
-    vscode.workspace.onDidChangeTextDocument(simpleAutocomplete.reset),
+    vscode.commands.registerTextEditorCommand('cyclicExpand.next', cyclicExpand.next),
+    vscode.window.onDidChangeTextEditorSelection(cyclicExpand.reset),
+    vscode.workspace.onDidChangeTextDocument(cyclicExpand.reset),
   )
 }

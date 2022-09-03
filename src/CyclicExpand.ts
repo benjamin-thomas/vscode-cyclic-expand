@@ -3,7 +3,7 @@ import { documentRippleScanner } from './documentRippleScanner';
 import { tokenizer } from './tokenizer';
 import { fuzzySearch } from './fuzzySearch';
 
-export class SimpleAutocomplete {
+export class CyclicExpand {
   private state: {
     needle: string;
     nextIterator: IterableIterator<boolean> | undefined;
