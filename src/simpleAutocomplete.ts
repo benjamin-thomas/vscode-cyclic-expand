@@ -16,7 +16,13 @@ export class SimpleAutocomplete {
     this.next = this.next.bind(this);
     this.reset = this.reset.bind(this);
 
-    this.reset();
+    this.state = {
+      needle: '',
+      nextIterator: undefined,
+      preventReset: false,
+      discardedMatches: [],
+      isActive: false,
+    };
   }
 
   public reset() {
