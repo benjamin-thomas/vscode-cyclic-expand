@@ -35,7 +35,7 @@
     "unit-test": "mocha --require ts-node/register test/unit/**/*.ts"
   },
   "devDependencies": {
-    "@types/escape-string-regexp": "0.0.31",
+    "@types/escape-string-regexp": "2.0.1",
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.7.14",
     "mocha": "^10.0.0",
@@ -44,6 +44,6 @@
     "vscode": "^1.0.0"
   },
   "dependencies": {
-    "escape-string-regexp": "^1.0.5"
+    "escape-string-regexp": "^4.0.0"
   }
 }
