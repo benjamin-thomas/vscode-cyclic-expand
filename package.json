@@ -15,7 +15,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:cyclicExpand.next"
+    "onCommand:cyclicExpand.next",
+    "onCommand:cyclicExpand.prev"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -23,6 +24,10 @@
       {
         "command": "cyclicExpand.next",
         "title": "Cycle to the next word"
+      },
+      {
+        "command": "cyclicExpand.prev",
+        "title": "Cycle to the prev word"
       }
     ]
   },
