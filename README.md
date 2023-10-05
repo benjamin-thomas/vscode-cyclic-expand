@@ -124,3 +124,5 @@ To generate a new token:
         - click the create btn
 
 See: https://code.visualstudio.com/api/working-with-extensions/publishing-extension
+
+Then monitor the build status here: https://marketplace.visualstudio.com/manage/publishers/benjamin-thomas
