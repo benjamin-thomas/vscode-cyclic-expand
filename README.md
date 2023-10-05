@@ -86,6 +86,41 @@ Cycling prev (next reversed):
 m > mild > mystery
 ```
 
+---
+
+The test setup is in a half broken state. See this for later upgrades.
+
+See:
+
+> The [vscode](https://github.com/microsoft/vscode-extension-vscode) module had been the default way of running extension integration tests and is being superseded by [@vscode/test-electron](https://github.com/microsoft/vscode-test).
+
+https://code.visualstudio.com/api/working-with-extensions/testing-extension
+
 ## Development
 
-To work an the extension, go to the "Run and Debug" menu, then run "Launch Extension".
+To work on the extension, go to the "Run and Debug" menu, then run "Launch Extension".
+
+## Release
+
+See: https://code.visualstudio.com/api/working-with-extensions/publishing-extension
+
+- bump version in `package.json`
+- vsce package
+- generate a new token
+- vsce login benjamin-thomas
+
+
+To generate a new token:
+
+- connect to https://dev.azure.com/bgthomas/
+  - authenticate via my GitHub account
+    - settings -> personal access token -> new token
+      - name: whatever
+      - org: all organizations
+      - expiry : short
+      - scope : leave custom defined
+      - click show more scopes
+        - marketplace -> manage
+        - click the create btn
+
+See: https://code.visualstudio.com/api/working-with-extensions/publishing-extension
