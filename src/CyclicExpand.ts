@@ -9,11 +9,14 @@ export class CyclicExpand {
     nextIterator: IterableIterator<boolean> | undefined;
     preventReset: boolean;
     discardedMatches: string[];
+    activeMatchIndex: number;
+    atEndOfMatches: boolean;
     isActive: boolean;
   };
 
   constructor() {
     this.next = this.next.bind(this);
+    this.prev = this.prev.bind(this);
     this.reset = this.reset.bind(this);
 
     this.state = {
@@ -21,6 +24,8 @@ export class CyclicExpand {
       nextIterator: undefined,
       preventReset: false,
       discardedMatches: [],
+      activeMatchIndex: -1,
+      atEndOfMatches: false,
       isActive: false,
     };
   }
@@ -32,6 +37,8 @@ export class CyclicExpand {
         nextIterator: undefined,
         preventReset: false,
         discardedMatches: [],
+        activeMatchIndex: -1,
+        atEndOfMatches: false,
         isActive: false,
       };
     }
@@ -39,6 +46,16 @@ export class CyclicExpand {
 
   public next(activeTextEditor: TextEditor) {
     this.state.isActive = true;
+
+    // If we've navigated with prev then we have the result ready
+    if (this.state.activeMatchIndex < this.state.discardedMatches.length - 1) {
+      const token = this.state.discardedMatches[++this.state.activeMatchIndex];
+      this.setMatch(token, activeTextEditor);
+      return;
+    }
+
+    // Don't do anything at the end of results so we can use prev if we want
+    if (this.state.atEndOfMatches) return;
 
     if (this.canAutocomplete(activeTextEditor)) {
       if (!this.state.nextIterator) {
@@ -48,7 +65,21 @@ export class CyclicExpand {
       const nextResult = this.state.nextIterator.next();
 
       if (nextResult.done) {
-        this.setMatch(this.state.needle, activeTextEditor).then(this.reset);
+        this.state.atEndOfMatches = true;
+      }
+    } else {
+      this.reset();
+    }
+  }
+
+  public prev(activeTextEditor: TextEditor) {
+    this.state.isActive = true;
+
+    if (this.canAutocomplete(activeTextEditor)) {
+      if (this.state.activeMatchIndex > 0) {
+        const token = this.state.discardedMatches[--this.state.activeMatchIndex];
+        this.setMatch(token, activeTextEditor);
+        return;
       }
     } else {
       this.reset();
@@ -90,6 +121,7 @@ export class CyclicExpand {
           this.state.discardedMatches.indexOf(token) === -1
         ) {
           this.state.discardedMatches.push(token);
+          this.state.activeMatchIndex = this.state.discardedMatches.length - 1;
           this.setMatch(token, activeTextEditor);
           yield true;
         }
