@@ -5,7 +5,7 @@ I ripped this from this unmaintained package: https://github.com/msafi/xvsc/tree
 The differences with this version are as follows:
 
 - the completion is case **sensitive**
-- it's possible to cycle backwards (thanks @stagas)
+- it's possible to cycle backwards (thanks [@stagas](https://github.com/stagas))
 
 ## Usage
 
