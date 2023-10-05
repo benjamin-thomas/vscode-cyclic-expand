@@ -2,7 +2,7 @@
   "name": "cyclic-expand",
   "displayName": "Cyclic Expand",
   "description": "Cyclic expand / Hippie completion",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "publisher": "benjamin-thomas",
   "engines": {
     "vscode": "^1.70.0"

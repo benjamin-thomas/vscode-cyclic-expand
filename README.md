@@ -61,7 +61,7 @@ m --> nothing happens
 
 ## Improvements
 
-Cycling in a "ripple" fashion is a bit odd. In the future, I'd like to mimic JetBrain's hippy completion which goes like this:
+1 - Cycling in a "ripple" fashion is a bit odd. In the future, I'd like to mimic JetBrain's hippy completion which goes like this:
 
 Given this text:
 
@@ -88,13 +88,22 @@ m > mild > mystery
 
 ---
 
-The test setup is in a half broken state. See this for later upgrades.
+2 - The test setup is in a half broken state. See this for later upgrades.
 
 See:
 
 > The [vscode](https://github.com/microsoft/vscode-extension-vscode) module had been the default way of running extension integration tests and is being superseded by [@vscode/test-electron](https://github.com/microsoft/vscode-test).
 
 https://code.visualstudio.com/api/working-with-extensions/testing-extension
+
+---
+
+3 - I should bundle the assets
+
+Right now, I publish including my node_modules. Doing otherwise will cause the extension to fail loading (because 
+`escape-string-regexp` is absent). let's say it's less than ideal!
+
+See: https://code.visualstudio.com/api/working-with-extensions/bundling-extension
 
 ## Development
 
@@ -108,6 +117,7 @@ See: https://code.visualstudio.com/api/working-with-extensions/publishing-extens
 - vsce package
 - generate a new token
 - vsce login benjamin-thomas
+- vsce publish
 
 
 To generate a new token:
@@ -125,4 +135,13 @@ To generate a new token:
 
 See: https://code.visualstudio.com/api/working-with-extensions/publishing-extension
 
-Then monitor the build status here: https://marketplace.visualstudio.com/manage/publishers/benjamin-thomas
+Then monitor the publishing status here: https://marketplace.visualstudio.com/manage/publishers/benjamin-thomas
+
+
+## Debugging
+
+If something goes wrong, make sure to open the following vscode menu: 
+
+```
+Help > Toggle Developer Tools
+```
