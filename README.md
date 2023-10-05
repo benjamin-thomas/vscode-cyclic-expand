@@ -2,12 +2,10 @@
 
 I ripped this from this unmaintained package: https://github.com/msafi/xvsc/tree/master/simpleAutocomplete
 
-The only difference so far is that this version is case **sensitive**.
+The differences with this version are as follows:
 
-I like the completion engine mostly, except two things:
-
-- the order of the suggestions could be better (return the word with most matching chars first)
-- can only advance, should cycle backwards too
+- the completion is case **sensitive**
+- it's possible to cycle backwards (thanks @stagas)
 
 ## Usage
 
@@ -17,5 +15,77 @@ Add this to your `keybindings.json` file:
 {
   "key":     "alt+/",
   "command": "cyclicExpand.next"
+},
+{
+  "key": "shift+alt+/",
+  "command": "cyclicExpand.prev"
 }
 ```
+
+Here's how the cycling works:
+
+Given this text:
+
+```
+mist
+milk
+m<CURSOR_HERE>
+mild
+mystery
+```
+
+Cycling next will march in a "ripple" fashion, as such:
+
+```
+m > milk > mild > mist > mystery
+```
+
+Cycling backwards is only available after having advanced in the ripple completion, like this:
+
+```
+# If you stopped cycling at mystery
+mystery > mist > mild > milk > m
+
+# If you stopped cycling at mist
+mist > mild > milk > m
+
+# If you stopped cycling at mild
+mild > milk > m
+
+# If you stopped cycling at milk
+milk > m
+
+# If you haven't cycled since moving your cursor
+m --> nothing happens
+```
+
+## Improvements
+
+Cycling in a "ripple" fashion is a bit odd. In the future, I'd like to mimic JetBrain's hippy completion which goes like this:
+
+Given this text:
+
+```
+mist
+milk
+m<CURSOR_HERE>
+mild
+mystery
+```
+
+Cycling next:
+
+```
+m > milk > mist
+```
+
+Cycling prev (next reversed):
+
+
+```
+m > mild > mystery
+```
+
+## Development
+
+To work an the extension, go to the "Run and Debug" menu, then run "Launch Extension".
